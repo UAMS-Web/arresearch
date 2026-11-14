@@ -14,6 +14,12 @@ Template Name: Landing
 
 // * Add landing body class to the head
 add_filter('body_class', 'minimum_add_body_class');
+/**
+ * Add the landing body class.
+ *
+ * @param  array<int, string>  $classes
+ * @return array<int, string>
+ */
 function minimum_add_body_class($classes)
 {
 
