@@ -45,7 +45,8 @@ jobs:
     uses: UAMS-Web/uams-ci-workflows/.github/workflows/ci.yml@v0.11.0
     with:
       linux-only: true
-      mutate: false
+      mutate: true
+      mutate-paths: functions.php lib archive-portfolio.php front-page.php page_landing.php single-portfolio.php
       floor-lint: true
       floor-lint-php: '8.2'
       download-archive: true

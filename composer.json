@@ -29,6 +29,7 @@
     "scripts": {
         "test": "@test:unit",
         "test:unit": "pest",
+        "mutate": "@php -d pcov.directory=. -d 'pcov.exclude=~/(vendor|tests)/~' vendor/bin/pest tests/Unit/AtLoadTest.php tests/Unit/CustomizerTest.php tests/Unit/FunctionsTest.php tests/Unit/TemplateArchivePortfolioTest.php tests/Unit/TemplateFrontPageTest.php tests/Unit/TemplateLandingTest.php tests/Unit/TemplateSinglePortfolioTest.php tests/Unit/ThemeDefaultsTest.php --mutate --path=functions.php,lib,archive-portfolio.php,front-page.php,page_landing.php,single-portfolio.php",
         "stan": "phpstan analyse --no-progress --memory-limit=2G",
         "refactor": "rector",
         "refactor:sweep": "rector --clear-cache --config=rector-sweep.php",
