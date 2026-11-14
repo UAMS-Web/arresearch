@@ -25,7 +25,7 @@ it('registers everything the theme sets up at load', function (): void {
     $hooks = $GLOBALS['arresearch_hooks'];
 
     // The child theme constants, and the version style.css states.
-    expect(CHILD_THEME_NAME)->toBe('Minimum Pro Theme')
+    expect(constant('CHILD_THEME_NAME'))->toBe('Minimum Pro Theme')
         ->and(CHILD_THEME_URL)->toBe('http://my.studiopress.com/themes/minimum/')
         ->and(CHILD_THEME_VERSION)->toBe('3.2.1')
         ->and(file_get_contents(dirname(__DIR__, 2).'/style.css'))->toContain('Version: '.CHILD_THEME_VERSION);
