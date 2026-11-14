@@ -1,0 +1,22 @@
+# Keep-list for the GitHub download (git archive): everything is left out except the paths
+# the theme runs. A new top-level runtime file or folder needs its own `-export-ignore` line
+# in the same change; the `download-archive` job in CI fails on anything that ships and is not
+# the theme. Rule: .claude/rules/keep-the-download-to-what-runs.md
+/* export-ignore
+/.* export-ignore
+
+# Theme templates and entry points
+/style.css -export-ignore
+/screenshot.png -export-ignore
+/functions.php -export-ignore
+/front-page.php -export-ignore
+/archive-portfolio.php -export-ignore
+/page_landing.php -export-ignore
+/single-portfolio.php -export-ignore
+/taxonomy-portfolio-type.php -export-ignore
+
+# Theme assets and includes
+/images -export-ignore
+/js -export-ignore
+/languages -export-ignore
+/lib -export-ignore
