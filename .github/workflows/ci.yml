@@ -7,9 +7,11 @@ name: CI
 #
 # - `uses:` names a release tag of UAMS-Web/uams-ci-workflows, never a branch, so a change to
 #   the shared chain reaches this repository only when the tag here moves.
-# - This is a theme: every job runs on `ubuntu-latest` alone (`linux-only`), mutation testing is
-#   off until its own ticket (`mutate: false`, which skips `mutate-ignore` with it), and the floor
-#   lint parses the shipped PHP files under PHP 8.2, the supported floor.
+# - This is a theme: every job runs on `ubuntu-latest` alone (`linux-only`), and the floor lint
+#   parses the shipped PHP files under PHP 8.2, the supported floor.
+# - Mutation testing is on. `mutate-paths` names the first-party PHP: a pull request or a push
+#   mutates only the files under it that the change touches (none touched passes with the reason
+#   printed), and a manual run mutates all of it through the `mutate` Composer script.
 # - The called jobs check out this repository, so it carries `.github/actions/setup/action.yml`,
 #   the synced `.claude/skills` scripts, the Composer scripts `test:pint`, `test:refactor`,
 #   `stan` and `test`, and `tests/skip-baseline.json`.
@@ -45,7 +47,7 @@ jobs:
     uses: UAMS-Web/uams-ci-workflows/.github/workflows/ci.yml@v0.11.0
     with:
       linux-only: true
-      mutate: false
+      mutate-paths: functions.php lib archive-portfolio.php front-page.php page_landing.php single-portfolio.php
       floor-lint: true
       floor-lint-php: '8.2'
       download-archive: true
