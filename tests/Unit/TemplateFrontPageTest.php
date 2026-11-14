@@ -115,16 +115,20 @@ it('adds no home featured areas when none of the four sidebars is active', funct
         ->and($asked)->toBe(['home-featured-1', 'home-featured-2', 'home-featured-3', 'home-featured-4']);
 });
 
-it('prints the volunteer count banner before the entry content', function (): void {
+it('prints the volunteer count banner before the entry content', function (mixed $field, string $count): void {
     arresearch_template('front-page.php');
 
-    Functions\expect('get_field')->once()->with('volunteer_number')->andReturn(12345);
+    Functions\expect('get_field')->once()->with('volunteer_number')->andReturn($field);
 
     ob_start();
     full_image_before_entry_content();
 
-    expect(ob_get_clean())->toBe('<div class="full-image"><div id="image-inner"><div id="volunteer-count"><h3>Volunteers to date: <span class="volunteer-count">12,345</span></h3></div><div id="inner-logo"><img src="https://arresearch.org/wp-content/uploads/sites/15/2017/06/ARresearch-logo-lrg.png" alt="ARresearch.org logo" /></div><div id="inner-cta" class="fade-in"><a class="cta-button" href="http://ncsdvs.uams.edu/ArResearch"><i class="fa fa-pencil-square-o"></i> Join Our Registry</a><h3>Be part of the answer, Arkansas!</h3></div></div></div>');
-});
+    expect(ob_get_clean())->toBe('<div class="full-image"><div id="image-inner"><div id="volunteer-count"><h3>Volunteers to date: <span class="volunteer-count">'.$count.'</span></h3></div><div id="inner-logo"><img src="https://arresearch.org/wp-content/uploads/sites/15/2017/06/ARresearch-logo-lrg.png" alt="ARresearch.org logo" /></div><div id="inner-cta" class="fade-in"><a class="cta-button" href="http://ncsdvs.uams.edu/ArResearch"><i class="fa fa-pencil-square-o"></i> Join Our Registry</a><h3>Be part of the answer, Arkansas!</h3></div></div></div>');
+})->with([
+    'an integer' => [12345, '12,345'],
+    'the numeric string ACF returns' => ['12345', '12,345'],
+    'no value' => [null, '0'],
+]);
 
 it('opens and closes the wrap around the post title area', function (): void {
     arresearch_template('front-page.php');
