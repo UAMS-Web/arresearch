@@ -37,6 +37,7 @@ add_filter('post_class', 'minimum_even_odd_portfolio_post_class');
 function minimum_even_odd_portfolio_post_class($classes)
 {
 
+    /** @var WP_Query $wp_query */
     global $wp_query;
     $classes[] = ($wp_query->current_post % 2 === 0) ? 'portfolio-odd' : 'portfolio-even';
 

@@ -58,7 +58,7 @@ add_filter('simple_social_default_styles', 'minimum_social_default_styles');
  * @param  array<string, mixed>  $defaults
  * @return array<string, mixed>
  */
-function minimum_social_default_styles($defaults)
+function minimum_social_default_styles($defaults): array
 {
 
     $args = [
@@ -71,6 +71,6 @@ function minimum_social_default_styles($defaults)
         'alignment' => 'aligncenter',
     ];
 
-    return wp_parse_args($args, $defaults);
+    return array_merge($defaults, $args);
 
 }

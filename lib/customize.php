@@ -35,12 +35,10 @@ add_action('customize_register', 'minimum_customizer');
  *
  * @since 3.0.0
  *
- * @global WP_Customize_Manager $wp_customize Customizer object, read from the global because the function takes no argument.
+ * @param  WP_Customize_Manager  $wp_customize  The Customizer object `customize_register` passes.
  */
-function minimum_customizer(): void
+function minimum_customizer(WP_Customize_Manager $wp_customize): void
 {
-
-    global $wp_customize;
 
     $wp_customize->add_section('minimum-image', [
         'title' => __('Backstretch Image', 'minimum'),

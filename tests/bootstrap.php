@@ -35,6 +35,9 @@ final class ArresearchThemeLoad
 
     /** @var array<string, int|false> */
     public static array $hooks = [];
+
+    /** @var array<string, array{calls: array<string, list<array<int|string, mixed>>>, hooks: array<string, int|false>}> */
+    public static array $templates = [];
 }
 
 /**
@@ -143,10 +146,8 @@ function minimum_site_tagline(): void {}
  */
 function arresearch_template(string $file, array $seeds = [], array $watch = []): array
 {
-    static $loaded = [];
-
-    if (isset($loaded[$file])) {
-        return $loaded[$file];
+    if (isset(ArresearchThemeLoad::$templates[$file])) {
+        return ArresearchThemeLoad::$templates[$file];
     }
 
     $calls = [];
@@ -171,7 +172,7 @@ function arresearch_template(string $file, array $seeds = [], array $watch = [])
         $hooks[$hook.'/'.$callback] = $action === false ? has_filter($hook, $callback) : $action;
     }
 
-    return $loaded[$file] = ['calls' => $calls, 'hooks' => $hooks];
+    return ArresearchThemeLoad::$templates[$file] = ['calls' => $calls, 'hooks' => $hooks];
 }
 
 // cspell:ignore ABSPATH stylesheet textdomain unregister

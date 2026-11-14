@@ -8,6 +8,8 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\Assert;
+
 use function Brain\Monkey\Functions\stubTranslationFunctions;
 use function Brain\Monkey\Functions\when;
 
@@ -17,7 +19,7 @@ it('registers the backstretch image section, setting and control', function (): 
     stubTranslationFunctions();
     when('get_stylesheet_directory_uri')->justReturn('https://example.test/theme');
 
-    $manager = Mockery::mock('WP_Customize_Manager');
+    $manager = Mockery::mock(WP_Customize_Manager::class);
     $manager->expects('add_section')->once()->with('minimum-image', [
         'title' => 'Backstretch Image',
         'description' => '<p>Use the included default image or personalize your site by uploading your own image for the homepage and landing page template background.</p><p>The default image is <strong>1600 x 1050 pixels</strong>.</p>',
@@ -37,11 +39,7 @@ it('registers the backstretch image section, setting and control', function (): 
             ]
     ));
 
-    $GLOBALS['wp_customize'] = $manager;
+    Assert::assertInstanceOf(WP_Customize_Manager::class, $manager);
 
-    try {
-        minimum_customizer();
-    } finally {
-        unset($GLOBALS['wp_customize']);
-    }
+    minimum_customizer($manager);
 });

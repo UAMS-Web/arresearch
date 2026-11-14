@@ -6,7 +6,12 @@
 
 declare(strict_types=1);
 
-class WP_Customize_Image_Control
+/**
+ * The base class of WordPress' controls, declared so the image control below has the parent it has in WordPress.
+ */
+class WP_Customize_Control {}
+
+class WP_Customize_Image_Control extends WP_Customize_Control
 {
     /**
      * @param  array<string, mixed>  $args
