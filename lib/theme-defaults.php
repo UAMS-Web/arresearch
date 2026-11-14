@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 // * Minimum Theme Setting Defaults
 add_filter('genesis_theme_settings_defaults', 'minimum_theme_defaults');
+/**
+ * Set the theme setting defaults.
+ *
+ * @param  array<string, mixed>  $defaults
+ * @return array<string, mixed>
+ */
 function minimum_theme_defaults($defaults)
 {
 
@@ -46,6 +52,12 @@ function minimum_theme_setting_defaults(): void
 
 // * Simple Social Icon Defaults
 add_filter('simple_social_default_styles', 'minimum_social_default_styles');
+/**
+ * Set the Simple Social Icons defaults.
+ *
+ * @param  array<string, mixed>  $defaults
+ * @return array<string, mixed>
+ */
 function minimum_social_default_styles($defaults)
 {
 

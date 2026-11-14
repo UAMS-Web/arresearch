@@ -11,6 +11,12 @@ add_filter('genesis_pre_get_option_site_layout', '__genesis_return_full_width_co
 
 // * Add portfolio body class to the head
 add_filter('body_class', 'minimum_add_portfolio_body_class');
+/**
+ * Add the portfolio body class.
+ *
+ * @param  array<int, string>  $classes
+ * @return array<int, string>
+ */
 function minimum_add_portfolio_body_class($classes)
 {
 
@@ -22,6 +28,12 @@ function minimum_add_portfolio_body_class($classes)
 
 // * Add even/odd post class
 add_filter('post_class', 'minimum_even_odd_portfolio_post_class');
+/**
+ * Add an odd or even portfolio post class.
+ *
+ * @param  array<int, string>  $classes
+ * @return array<int, string>
+ */
 function minimum_even_odd_portfolio_post_class($classes)
 {
 

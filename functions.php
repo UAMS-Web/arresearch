@@ -84,6 +84,12 @@ remove_action('genesis_after_header', 'genesis_do_subnav');
 
 // * Reduce the secondary navigation menu to one level depth
 add_filter('wp_nav_menu_args', 'minimum_secondary_menu_args');
+/**
+ * Reduce the secondary navigation menu to one level.
+ *
+ * @param  array<string, mixed>  $args
+ * @return array<string, mixed>
+ */
 function minimum_secondary_menu_args($args)
 {
 
@@ -140,6 +146,12 @@ function minimum_author_box_gravatar(): int
 
 // * Modify the size of the Gravatar in the entry comments
 add_filter('genesis_comment_list_args', 'minimum_comments_gravatar');
+/**
+ * Set the comment Gravatar size.
+ *
+ * @param  array<string, mixed>  $args
+ * @return array<string, mixed>
+ */
 function minimum_comments_gravatar($args)
 {
 
