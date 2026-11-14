@@ -11,8 +11,8 @@
  * is ever tested.
  *
  * tests/bootstrap.php records every call functions.php makes to the stubbed WordPress and
- * Genesis functions in $GLOBALS['arresearch_calls'], and reads the hooks it registered into
- * $GLOBALS['arresearch_hooks'] (`false` for a hook that is not registered, otherwise its
+ * Genesis functions in ArresearchThemeLoad::$calls, and reads the hooks it registered into
+ * ArresearchThemeLoad::$hooks (`false` for a hook that is not registered, otherwise its
  * priority).
  *
  * @see functions.php
@@ -21,8 +21,8 @@
 declare(strict_types=1);
 
 it('registers everything the theme sets up at load', function (): void {
-    $calls = $GLOBALS['arresearch_calls'];
-    $hooks = $GLOBALS['arresearch_hooks'];
+    $calls = ArresearchThemeLoad::$calls;
+    $hooks = ArresearchThemeLoad::$hooks;
 
     // The child theme constants, and the version style.css states.
     expect(strval(constant('CHILD_THEME_NAME')))->toBe('Minimum Pro Theme')

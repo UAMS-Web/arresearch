@@ -127,7 +127,10 @@ it('prints the volunteer count banner before the entry content', function (mixed
 })->with([
     'an integer' => [12345, '12,345'],
     'the numeric string ACF returns' => ['12345', '12,345'],
+    'a decimal string' => ['1234.6', '1,235'],
     'no value' => [null, '0'],
+    'a non-numeric string' => ['many', '0'],
+    'an array' => [[12345], '0'],
 ]);
 
 it('opens and closes the wrap around the post title area', function (): void {

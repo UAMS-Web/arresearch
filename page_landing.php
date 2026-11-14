@@ -37,7 +37,7 @@ function minimum_enqueue_backstretch(): void
     $image = get_option('minimum-backstretch-image', sprintf('%s/images/bg.jpg', get_stylesheet_directory_uri()));
 
     // * Load scripts only if custom backstretch image is being used
-    if (! empty($image)) {
+    if (! empty($image) && is_string($image)) {
 
         // * Load Backstretch scripts
         wp_enqueue_script('minimum-backstretch', get_bloginfo('stylesheet_directory').'/js/backstretch.js', ['jquery'], '1.0.0');
