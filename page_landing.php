@@ -23,7 +23,7 @@ function minimum_add_body_class($classes)
 
 // * Enqueue Backstretch scripts
 add_action('wp_enqueue_scripts', 'minimum_enqueue_backstretch');
-function minimum_enqueue_backstretch()
+function minimum_enqueue_backstretch(): void
 {
 
     $image = get_option('minimum-backstretch-image', sprintf('%s/images/bg.jpg', get_stylesheet_directory_uri()));

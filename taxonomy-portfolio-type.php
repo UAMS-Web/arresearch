@@ -24,7 +24,7 @@ function minimum_even_odd_portfolio_post_class($classes)
 {
 
     global $wp_query;
-    $classes[] = ($wp_query->current_post % 2 == 0) ? 'portfolio-odd' : 'portfolio-even';
+    $classes[] = ($wp_query->current_post % 2 === 0) ? 'portfolio-odd' : 'portfolio-even';
 
     return $classes;
 
@@ -47,7 +47,7 @@ remove_action('genesis_entry_content', 'genesis_do_post_image', 8);
 
 // * Add the featured image after post title
 add_action('genesis_entry_content', 'minimum_portfolio_grid');
-function minimum_portfolio_grid()
+function minimum_portfolio_grid(): void
 {
 
     if ($image = genesis_get_image('format=url&size=portfolio')) {

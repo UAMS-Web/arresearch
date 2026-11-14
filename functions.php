@@ -25,7 +25,7 @@ add_theme_support('genesis-responsive-viewport');
 
 // * Enqueue scripts
 add_action('wp_enqueue_scripts', 'minimum_enqueue_scripts');
-function minimum_enqueue_scripts()
+function minimum_enqueue_scripts(): void
 {
 
     wp_enqueue_script('minimum-responsive-menu', get_bloginfo('stylesheet_directory').'/js/responsive-menu.js', ['jquery'], '1.0.0');
@@ -96,7 +96,7 @@ function minimum_secondary_menu_args($args)
 }
 
 add_action('get_header', 'child_remove_genesis_do_nav');
-function child_remove_genesis_do_nav()
+function child_remove_genesis_do_nav(): void
 {
     if (is_front_page()) {
         remove_action('genesis_after_header', 'genesis_do_nav', 15);
@@ -127,7 +127,7 @@ function minimum_site_tagline() {
 
 // * Modify the size of the Gravatar in the author box
 add_filter('genesis_author_box_gravatar_size', 'minimum_author_box_gravatar');
-function minimum_author_box_gravatar($size)
+function minimum_author_box_gravatar($size): int
 {
 
     return 144;
@@ -196,7 +196,7 @@ genesis_register_sidebar([
 
 add_action('genesis_before_sidebar_widget_area', 'wpsites_widget_before_secondary_sidebar');
 
-function wpsites_widget_before_secondary_sidebar()
+function wpsites_widget_before_secondary_sidebar(): void
 {
 
     echo '<div class="base-sidebar">';
@@ -204,6 +204,7 @@ function wpsites_widget_before_secondary_sidebar()
     echo '</div>';
 
 }
+
 // Add class to primary sidebar
 /*
 add_filter( 'genesis_attr_sidebar-primary', 'tm_attr_sidebar_primary' );
@@ -215,11 +216,9 @@ function tm_attr_sidebar_primary( $attributes ) {
 
 // * Change the footer text
 add_filter('genesis_footer_creds_text', 'sp_footer_creds_filter');
-function sp_footer_creds_filter($creds)
+function sp_footer_creds_filter($creds): string
 {
-    $creds = 'ARresearch.org is supported by the Translational Research Institute, grant 1U54TR001629-01A1, through the National Institutes of Health,<br/>National Center for Advancing Translational Sciences, UAMS, and the UAMS Chancellor’s Circle.<br/></p><p><br/>Copyright [footer_copyright]  UAMS Translational Research Institute | All Rights Reserved &middot; [footer_loginout]';
-
-    return $creds;
+    return 'ARresearch.org is supported by the Translational Research Institute, grant 1U54TR001629-01A1, through the National Institutes of Health,<br/>National Center for Advancing Translational Sciences, UAMS, and the UAMS Chancellor’s Circle.<br/></p><p><br/>Copyright [footer_copyright]  UAMS Translational Research Institute | All Rights Reserved &middot; [footer_loginout]';
 }
 
 // Display Footer Navigation Menu above footer content
@@ -230,7 +229,7 @@ add_action('genesis_after_footer', 'tm_do_footernav', 5);
  * @uses genesis_nav_menu() Display a navigation menu.
  * @uses genesis_nav_menu_supported() Checks for support of specific nav menu.
  */
-function tm_do_footernav()
+function tm_do_footernav(): void
 {
 
     // * Do nothing if menu not supported
@@ -248,7 +247,7 @@ function tm_do_footernav()
 }
 
 add_action('genesis_after', 'tm_uams_logo');
-function tm_uams_logo()
+function tm_uams_logo(): void
 {
     echo '<div class="uams-logo"><a href="http://www.uams.edu"><img src="https://arresearch.org/wp-content/uploads/2017/06/UAMS_Logo.png" width="250" height="70" alt="University of Arkansas for Medical Sciences (UAMS)"></a></div>';
 }

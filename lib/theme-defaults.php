@@ -19,7 +19,7 @@ function minimum_theme_defaults($defaults)
 
 // * Minimum Theme Setup
 add_action('after_switch_theme', 'minimum_theme_setting_defaults');
-function minimum_theme_setting_defaults()
+function minimum_theme_setting_defaults(): void
 {
 
     if (function_exists('genesis_update_settings')) {
@@ -57,8 +57,6 @@ function minimum_social_default_styles($defaults)
         'alignment' => 'aligncenter',
     ];
 
-    $args = wp_parse_args($args, $defaults);
-
-    return $args;
+    return wp_parse_args($args, $defaults);
 
 }
