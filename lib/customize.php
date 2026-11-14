@@ -23,6 +23,7 @@
 function minimum_customizer_get_default_accent_color(): string
 {
 
+    // Scratch change for the #15 verification; never merged.
     return '#0ebfe9';
 
 }
