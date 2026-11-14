@@ -85,6 +85,8 @@ add_filter('wp_nav_menu_args', 'minimum_secondary_menu_args');
 function minimum_secondary_menu_args($args)
 {
 
+    // Equivalent mutant: WordPress always passes theme_location as a string, where loose and strict comparison agree.
+    // @pest-mutate-ignore: NotEqualToNotIdentical
     if ($args['theme_location'] != 'secondary') {
         return $args;
     }
