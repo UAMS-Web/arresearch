@@ -30,7 +30,7 @@ require_once get_stylesheet_directory().'/lib/customize.php';
 // * Child theme (do not remove)
 define('CHILD_THEME_NAME', __('Minimum Pro Theme', 'minimum'));
 define('CHILD_THEME_URL', 'http://my.studiopress.com/themes/minimum/');
-define('CHILD_THEME_VERSION', '3.2.1');
+define('CHILD_THEME_VERSION', '3.3.0');
 
 // * Add HTML5 markup structure
 add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);

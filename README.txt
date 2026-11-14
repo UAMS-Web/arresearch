@@ -51,3 +51,8 @@ CHANGELOG
 
 = 3.2.1 =
 * Rename menus based on location
+
+= 3.3.0 =
+* Limit the GitHub download to the files the theme runs
+* Print 0 for a non-numeric volunteer count on the front page
+* Add unit tests, static analysis, and strict types
