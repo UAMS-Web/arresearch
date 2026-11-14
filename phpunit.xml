@@ -20,6 +20,15 @@
         <include>
             <directory suffix=".php">./lib</directory>
             <file>./functions.php</file>
+            <file>./archive-portfolio.php</file>
+            <file>./front-page.php</file>
+            <file>./page_landing.php</file>
+            <file>./single-portfolio.php</file>
         </include>
+        <!--
+            taxonomy-portfolio-type.php is left out on purpose: it is byte-identical to
+            archive-portfolio.php (tests/Unit/PortfolioTemplatesTest.php pins that), and the two
+            declare the same functions, so one process can load only one of them.
+        -->
     </source>
 </phpunit>
