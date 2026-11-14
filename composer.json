@@ -1,0 +1,15 @@
+{
+    "name": "uams-web/arresearch",
+    "description": "A child theme for ARResearch.org, based on the Minimum Pro child theme.",
+    "type": "wordpress-theme",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.2"
+    },
+    "config": {
+        "platform": {
+            "php": "8.4.27"
+        },
+        "sort-packages": true
+    }
+}
