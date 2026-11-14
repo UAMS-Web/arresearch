@@ -9,3 +9,6 @@
 #
 # Pint reformat: adopt the laravel preset
 93de11846e6e4cf18b1b614702d53ea25377beb3
+#
+# Pint reformat: declare strict_types in every first-party PHP file
+3b4c9e528863c9dd2d5b4e93e011171ab0d9279e

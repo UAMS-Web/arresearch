@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // * Minimum Theme Setting Defaults
 add_filter('genesis_theme_settings_defaults', 'minimum_theme_defaults');
 function minimum_theme_defaults($defaults)
