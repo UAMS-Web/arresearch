@@ -24,6 +24,20 @@ if (! defined('ABSPATH')) {
 }
 
 /**
+ * What arresearch_load_theme() recorded while functions.php loaded.
+ *
+ * Typed properties rather than $GLOBALS entries, so a test reads them as arrays and not as mixed.
+ */
+final class ArresearchThemeLoad
+{
+    /** @var array<string, list<array<int|string, mixed>>> */
+    public static array $calls = [];
+
+    /** @var array<string, int|false> */
+    public static array $hooks = [];
+}
+
+/**
  * Load functions.php, once, from inside the first test that asks.
  *
  * It cannot load in this bootstrap: a coverage driver records only what runs inside a test,
@@ -32,10 +46,10 @@ if (! defined('ABSPATH')) {
  * the session the file loads in is the first test's and its hooks are discarded with it.
  *
  * What functions.php does at file scope is recorded so a test can pin it. The calls to the
- * stubbed WordPress and Genesis functions go to $GLOBALS['arresearch_calls'], keyed by
+ * stubbed WordPress and Genesis functions go to ArresearchThemeLoad::$calls, keyed by
  * function name, one entry of arguments per call. The hooks the file adds, and the ones it
  * removes from the Genesis defaults seeded below, are read out of Brain Monkey before
- * tearDown() discards them, into $GLOBALS['arresearch_hooks'] (`false` for a hook that is
+ * tearDown() discards them, into ArresearchThemeLoad::$hooks (`false` for a hook that is
  * not registered, otherwise its priority). get_template_directory() points at an empty
  * stand-in for Genesis, because functions.php includes the parent theme's lib/init.php.
  */
@@ -54,7 +68,7 @@ function arresearch_load_theme(): void
     when('get_template_directory')->justReturn(__DIR__.'/Fixtures/genesis');
     when('get_stylesheet_directory')->justReturn(dirname(__DIR__));
 
-    $GLOBALS['arresearch_calls'] = [];
+    ArresearchThemeLoad::$calls = [];
 
     foreach ([
         'load_child_theme_textdomain',
@@ -65,7 +79,7 @@ function arresearch_load_theme(): void
         'unregister_sidebar',
     ] as $recorded) {
         when($recorded)->alias(static function (mixed ...$arguments) use ($recorded): void {
-            $GLOBALS['arresearch_calls'][$recorded][] = $arguments;
+            ArresearchThemeLoad::$calls[$recorded][] = $arguments;
         });
     }
 
@@ -77,7 +91,7 @@ function arresearch_load_theme(): void
 
     require_once __DIR__.'/../functions.php';
 
-    $GLOBALS['arresearch_hooks'] = [
+    ArresearchThemeLoad::$hooks = [
         'wp_enqueue_scripts/minimum_enqueue_scripts' => has_action('wp_enqueue_scripts', 'minimum_enqueue_scripts'),
         'wp_nav_menu_args/minimum_secondary_menu_args' => has_filter('wp_nav_menu_args', 'minimum_secondary_menu_args'),
         'get_header/child_remove_genesis_do_nav' => has_action('get_header', 'child_remove_genesis_do_nav'),

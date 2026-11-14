@@ -41,7 +41,10 @@ add_action('genesis_before_entry_content', 'full_image_before_entry_content');
 function full_image_before_entry_content(): void
 {
 
-    $content = '<div class="full-image"><div id="image-inner"><div id="volunteer-count"><h3>Volunteers to date: <span class="volunteer-count">'.number_format((float) get_field('volunteer_number')).'</span></h3></div><div id="inner-logo"><img src="https://arresearch.org/wp-content/uploads/sites/15/2017/06/ARresearch-logo-lrg.png" alt="ARresearch.org logo" /></div><div id="inner-cta" class="fade-in"><a class="cta-button" href="http://ncsdvs.uams.edu/ArResearch"><i class="fa fa-pencil-square-o"></i> Join Our Registry</a><h3>Be part of the answer, Arkansas!</h3></div></div></div>';
+    $volunteers = get_field('volunteer_number');
+    $volunteers = is_numeric($volunteers) ? (float) $volunteers : 0.0;
+
+    $content = '<div class="full-image"><div id="image-inner"><div id="volunteer-count"><h3>Volunteers to date: <span class="volunteer-count">'.number_format($volunteers).'</span></h3></div><div id="inner-logo"><img src="https://arresearch.org/wp-content/uploads/sites/15/2017/06/ARresearch-logo-lrg.png" alt="ARresearch.org logo" /></div><div id="inner-cta" class="fade-in"><a class="cta-button" href="http://ncsdvs.uams.edu/ArResearch"><i class="fa fa-pencil-square-o"></i> Join Our Registry</a><h3>Be part of the answer, Arkansas!</h3></div></div></div>';
 
     echo $content;
 }

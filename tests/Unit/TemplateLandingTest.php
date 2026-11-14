@@ -81,7 +81,7 @@ it('loads Backstretch with the chosen image, dropping the http: scheme', functio
     minimum_enqueue_backstretch();
 });
 
-it('loads no Backstretch scripts when the image setting is empty', function (mixed $image): void {
+it('loads no Backstretch scripts when the image setting is empty or not a URL string', function (mixed $image): void {
     arresearch_template('page_landing.php');
 
     when('get_stylesheet_directory_uri')->justReturn('https://example.test/theme');
@@ -91,4 +91,4 @@ it('loads no Backstretch scripts when the image setting is empty', function (mix
     Functions\expect('wp_localize_script')->never();
 
     minimum_enqueue_backstretch();
-})->with(['empty string' => [''], 'false' => [false], 'null' => [null]]);
+})->with(['empty string' => [''], 'zero string' => ['0'], 'false' => [false], 'null' => [null], 'array' => [['http://example.test/bg.jpg']], 'true' => [true]]);
