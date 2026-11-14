@@ -30,7 +30,7 @@ it('registers everything the theme sets up at load', function (): void {
     Assert::assertSame('Minimum Pro Theme', constant('CHILD_THEME_NAME'));
 
     expect(CHILD_THEME_URL)->toBe('http://my.studiopress.com/themes/minimum/')
-        ->and(CHILD_THEME_VERSION)->toBe('3.2.1')
+        ->and(CHILD_THEME_VERSION)->toBe('3.3.0')
         ->and(file_get_contents(dirname(__DIR__, 2).'/style.css'))->toContain('Version: '.CHILD_THEME_VERSION);
 
     // The textdomain, image size and layout and sidebar removals.
