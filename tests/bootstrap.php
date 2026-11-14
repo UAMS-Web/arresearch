@@ -3,20 +3,17 @@
 /**
  * Unit bootstrap for the theme.
  *
- * Loads functions.php, which a theme cannot avoid, inside one Brain Monkey
- * session. There is no WordPress and no Genesis here: every function that
- * functions.php and the files it includes call at file scope is stubbed below.
+ * Defines the loader for functions.php, which a theme cannot avoid. There is no
+ * WordPress and no Genesis here: every function that functions.php and the files
+ * it includes call at file scope is stubbed inside the loader.
  */
 
 declare(strict_types=1);
 
 use Brain\Monkey\Functions;
 
-use function Brain\Monkey\Functions\stubs;
 use function Brain\Monkey\Functions\stubTranslationFunctions;
 use function Brain\Monkey\Functions\when;
-use function Brain\Monkey\setUp;
-use function Brain\Monkey\tearDown;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -26,33 +23,79 @@ if (! defined('ABSPATH')) {
     define('ABSPATH', sys_get_temp_dir().'/arresearch-tests-no-wordpress/');
 }
 
-/*
- * functions.php registers hooks and calls WordPress and Genesis at file scope,
- * so it is loaded inside one Brain Monkey session with what it calls at load
- * time stubbed. The functions it defines outlive the session; the hooks it
- * registered are discarded by tearDown(), so every test starts clean.
+/**
+ * Load functions.php, once, from inside the first test that asks.
  *
- * get_template_directory() points at an empty stand-in for Genesis, because
- * functions.php includes the parent theme's lib/init.php.
+ * It cannot load in this bootstrap: a coverage driver records only what runs inside a test,
+ * so a mutation run would report every file-scope line as uncovered and never mutate it.
+ * tests/Pest.php calls this from every test's beforeEach, after Brain Monkey's setUp(), so
+ * the session the file loads in is the first test's and its hooks are discarded with it.
+ *
+ * What functions.php does at file scope is recorded so a test can pin it. The calls to the
+ * stubbed WordPress and Genesis functions go to $GLOBALS['arresearch_calls'], keyed by
+ * function name, one entry of arguments per call. The hooks the file adds, and the ones it
+ * removes from the Genesis defaults seeded below, are read out of Brain Monkey before
+ * tearDown() discards them, into $GLOBALS['arresearch_hooks'] (`false` for a hook that is
+ * not registered, otherwise its priority). get_template_directory() points at an empty
+ * stand-in for Genesis, because functions.php includes the parent theme's lib/init.php.
  */
-setUp();
+function arresearch_load_theme(): void
+{
+    static $loaded = false;
 
-stubTranslationFunctions();
+    if ($loaded) {
+        return;
+    }
 
-when('get_template_directory')->justReturn(__DIR__.'/Fixtures/genesis');
-when('get_stylesheet_directory')->justReturn(dirname(__DIR__));
+    $loaded = true;
 
-stubs([
-    'load_child_theme_textdomain',
-    'add_theme_support',
-    'add_image_size',
-    'genesis_unregister_layout',
-    'genesis_register_sidebar',
-    'unregister_sidebar',
-]);
+    stubTranslationFunctions();
 
-require_once __DIR__.'/../functions.php';
+    when('get_template_directory')->justReturn(__DIR__.'/Fixtures/genesis');
+    when('get_stylesheet_directory')->justReturn(dirname(__DIR__));
 
-tearDown();
+    $GLOBALS['arresearch_calls'] = [];
+
+    foreach ([
+        'load_child_theme_textdomain',
+        'add_theme_support',
+        'add_image_size',
+        'genesis_unregister_layout',
+        'genesis_register_sidebar',
+        'unregister_sidebar',
+    ] as $recorded) {
+        when($recorded)->alias(static function (mixed ...$arguments) use ($recorded): void {
+            $GLOBALS['arresearch_calls'][$recorded][] = $arguments;
+        });
+    }
+
+    // The Genesis defaults that functions.php removes or moves.
+    add_action('genesis_site_description', 'genesis_seo_site_description');
+    add_action('genesis_after_header', 'genesis_do_nav');
+    add_action('genesis_after_header', 'genesis_do_subnav');
+    add_action('genesis_after_entry', 'genesis_after_entry_widget_area');
+
+    require_once __DIR__.'/../functions.php';
+
+    $GLOBALS['arresearch_hooks'] = [
+        'wp_enqueue_scripts/minimum_enqueue_scripts' => has_action('wp_enqueue_scripts', 'minimum_enqueue_scripts'),
+        'wp_nav_menu_args/minimum_secondary_menu_args' => has_filter('wp_nav_menu_args', 'minimum_secondary_menu_args'),
+        'get_header/child_remove_genesis_do_nav' => has_action('get_header', 'child_remove_genesis_do_nav'),
+        'genesis_author_box_gravatar_size/minimum_author_box_gravatar' => has_filter('genesis_author_box_gravatar_size', 'minimum_author_box_gravatar'),
+        'genesis_comment_list_args/minimum_comments_gravatar' => has_filter('genesis_comment_list_args', 'minimum_comments_gravatar'),
+        'genesis_before_sidebar_widget_area/wpsites_widget_before_secondary_sidebar' => has_action('genesis_before_sidebar_widget_area', 'wpsites_widget_before_secondary_sidebar'),
+        'genesis_footer_creds_text/sp_footer_creds_filter' => has_filter('genesis_footer_creds_text', 'sp_footer_creds_filter'),
+        'genesis_after_footer/tm_do_footernav' => has_action('genesis_after_footer', 'tm_do_footernav'),
+        'genesis_after/tm_uams_logo' => has_action('genesis_after', 'tm_uams_logo'),
+        'genesis_theme_settings_defaults/minimum_theme_defaults' => has_filter('genesis_theme_settings_defaults', 'minimum_theme_defaults'),
+        'after_switch_theme/minimum_theme_setting_defaults' => has_action('after_switch_theme', 'minimum_theme_setting_defaults'),
+        'simple_social_default_styles/minimum_social_default_styles' => has_filter('simple_social_default_styles', 'minimum_social_default_styles'),
+        'customize_register/minimum_customizer' => has_action('customize_register', 'minimum_customizer'),
+        'genesis_site_description/genesis_seo_site_description' => has_action('genesis_site_description', 'genesis_seo_site_description'),
+        'genesis_after_header/genesis_do_nav' => has_action('genesis_after_header', 'genesis_do_nav'),
+        'genesis_after_header/genesis_do_subnav' => has_action('genesis_after_header', 'genesis_do_subnav'),
+        'genesis_after_entry/genesis_after_entry_widget_area' => has_action('genesis_after_entry', 'genesis_after_entry_widget_area'),
+    ];
+}
 
 // cspell:ignore ABSPATH stylesheet textdomain unregister

@@ -26,6 +26,8 @@ use function Brain\Monkey\tearDown;
 uses()
     ->beforeEach(function (): void {
         setUp();
+
+        arresearch_load_theme();
     })
     ->afterEach(function (): void {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
