@@ -98,4 +98,56 @@ function arresearch_load_theme(): void
     ];
 }
 
+/**
+ * Load one root template file, once, from inside the test that asks, and report what it did.
+ *
+ * Like arresearch_load_theme(), this runs inside a test so that a coverage driver credits the
+ * file-scope lines to it. Call it as the first line of every test in a template's test file,
+ * and keep the assertions on file-scope behavior in the file's first test: a mutation run runs
+ * only the tests that covered a mutated line, and the first caller is the one that covers the
+ * file-scope lines.
+ *
+ * `$seeds` are Genesis hooks to register before the load, as `[hook, callback, priority]`, so
+ * the template's `remove_action()` calls have something to remove. `$watch` are the hooks to
+ * read back afterwards, as `[hook, callback]`. The result is `calls` (the arguments of each
+ * call to add_theme_support() and genesis(), by function) and `hooks` (priority, or `false`
+ * where the callback is not registered, keyed `hook/callback`).
+ *
+ * @param  list<array{string, string, int}>  $seeds
+ * @param  list<array{string, string}>  $watch
+ * @return array{calls: array<string, list<array<int, mixed>>>, hooks: array<string, int|false>}
+ */
+function arresearch_template(string $file, array $seeds = [], array $watch = []): array
+{
+    static $loaded = [];
+
+    if (isset($loaded[$file])) {
+        return $loaded[$file];
+    }
+
+    $calls = [];
+
+    foreach (['add_theme_support', 'genesis'] as $recorded) {
+        when($recorded)->alias(static function (mixed ...$arguments) use (&$calls, $recorded): void {
+            $calls[$recorded][] = $arguments;
+        });
+    }
+
+    foreach ($seeds as [$hook, $callback, $priority]) {
+        add_action($hook, $callback, $priority);
+    }
+
+    require_once __DIR__.'/../'.$file;
+
+    $hooks = [];
+
+    foreach ($watch as [$hook, $callback]) {
+        // Brain Monkey keeps actions and filters apart; WordPress does not, and a template may use either.
+        $action = has_action($hook, $callback);
+        $hooks[$hook.'/'.$callback] = $action === false ? has_filter($hook, $callback) : $action;
+    }
+
+    return $loaded[$file] = ['calls' => $calls, 'hooks' => $hooks];
+}
+
 // cspell:ignore ABSPATH stylesheet textdomain unregister
