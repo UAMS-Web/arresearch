@@ -2,7 +2,7 @@ name: CI
 
 # Calls the shared job chain in UAMS-Web/uams-ci-workflows and adds the one job a ruleset
 # requires, `CI`. The chain (Composer validate, synced files, no-emoji, aggregate-needs, Pint,
-# Rector, PHPStan, Pest, floor lint) lives there, from the template
+# Rector, PHPStan, Pest, floor lint, download archive) lives there, from the template
 # `.claude/skills/code-quality/templates/ci-reusable.yml` in UAMS-Web/uams-claude-skills.
 #
 # - `uses:` names a release tag of UAMS-Web/uams-ci-workflows, never a branch, so a change to
@@ -48,6 +48,8 @@ jobs:
       mutate: false
       floor-lint: true
       floor-lint-php: '8.2'
+      download-archive: true
+      download-archive-command: node .claude/skills/download-archive-check/check-download-archive.mjs
       floor-lint-command: >-
         find . -name '*.php' -not -path './vendor/*' -not -path './tests/*' -not -path './.claude/*'
         -not -path './.agents/*' -not -path './.cursor/*' -print0 | xargs -0 -n1 php -l
