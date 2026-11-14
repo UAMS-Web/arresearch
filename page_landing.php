@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file adds the Landing template to the Minimum Pro Theme.
  *

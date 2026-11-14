@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Remove 'site-inner' from structural wrap
 add_theme_support('genesis-structural-wraps', ['header', 'site-inner', 'footer-widgets', 'footer']);
 
