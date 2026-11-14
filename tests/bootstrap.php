@@ -99,6 +99,16 @@ function arresearch_load_theme(): void
 }
 
 /**
+ * Stand in for the tagline callback that functions.php keeps commented out.
+ *
+ * The landing page template still calls `remove_action()` for it, and the landing test seeds it so
+ * that the removal has something to remove. A declared function lets the seed pass as a callable
+ * string, which `arresearch_template()` requires. Uncommenting the real function in functions.php
+ * redeclares this one and fails the suite at load, which is the signal to delete this stand-in.
+ */
+function minimum_site_tagline(): void {}
+
+/**
  * Load one root template file, once, from inside the test that asks, and report what it did.
  *
  * Like arresearch_load_theme(), this runs inside a test so that a coverage driver credits the
@@ -113,9 +123,9 @@ function arresearch_load_theme(): void
  * call to add_theme_support() and genesis(), by function) and `hooks` (priority, or `false`
  * where the callback is not registered, keyed `hook/callback`).
  *
- * @param  list<array{string, string, int}>  $seeds
+ * @param  list<array{string, callable-string, int}>  $seeds
  * @param  list<array{string, string}>  $watch
- * @return array{calls: array<string, list<array<int, mixed>>>, hooks: array<string, int|false>}
+ * @return array{calls: array<string, list<array<int|string, mixed>>>, hooks: array<string, int|false>}
  */
 function arresearch_template(string $file, array $seeds = [], array $watch = []): array
 {
