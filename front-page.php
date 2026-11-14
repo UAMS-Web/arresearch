@@ -1,40 +1,7 @@
 <?php
 
-// * Enqueue scripts
-add_action('wp_enqueue_scripts', 'minimum_front_page_enqueue_scripts');
-function minimum_front_page_enqueue_scripts(): void
-{
-
-    //	$image = get_option( 'minimum-backstretch-image', sprintf( '%s/images/bg.jpg', get_stylesheet_directory_uri() ) );
-
-    // * Load scripts only if custom backstretch image is being used
-    if (! empty($image)) {
-
-        // * Enqueue Backstretch scripts
-        //		wp_enqueue_script( 'minimum-backstretch', get_bloginfo( 'stylesheet_directory' ) . '/js/backstretch.js', array( 'jquery' ), '1.0.0' );
-        //		wp_enqueue_script( 'minimum-backstretch-set', get_bloginfo( 'stylesheet_directory' ).'/js/backstretch-set.js' , array( 'jquery', 'minimum-backstretch' ), '1.0.0' );
-
-        //		wp_localize_script( 'minimum-backstretch-set', 'BackStretchImg', array( 'src' => str_replace( 'http:', '', $image ) ) );
-
-        // * Add custom body class
-        add_filter('body_class', 'minimum_add_body_class');
-
-    }
-
-}
-
 // Remove 'site-inner' from structural wrap
 add_theme_support('genesis-structural-wraps', ['header', 'site-inner', 'footer-widgets', 'footer']);
-
-// * Minimum custom body class
-function minimum_add_body_class($classes)
-{
-
-    $classes[] = 'minimum';
-
-    return $classes;
-
-}
 
 // * Add widget support for homepage if widgets are being used
 add_action('genesis_meta', 'minimum_front_page_genesis_meta');
