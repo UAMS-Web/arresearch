@@ -9,7 +9,20 @@ include_once get_template_directory().'/lib/init.php';
 include_once get_stylesheet_directory().'/lib/theme-defaults.php';
 
 // * Set Localization (do not remove)
-load_child_theme_textdomain('minimum', apply_filters('child_theme_textdomain', get_stylesheet_directory().'/languages', 'minimum'));
+minimum_load_textdomain();
+/**
+ * Load the child theme's translations from the folder the `child_theme_textdomain` filter returns.
+ *
+ * A filter that returns anything but a string falls back to WordPress' default location.
+ */
+function minimum_load_textdomain(): void
+{
+
+    $path = apply_filters('child_theme_textdomain', get_stylesheet_directory().'/languages', 'minimum');
+
+    load_child_theme_textdomain('minimum', is_string($path) ? $path : false);
+
+}
 
 // * Add Image upload and Color select to WordPress Theme Customizer
 require_once get_stylesheet_directory().'/lib/customize.php';

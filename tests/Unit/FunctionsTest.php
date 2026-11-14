@@ -130,3 +130,14 @@ it('prints the UAMS logo linked to uams.edu', function (): void {
         '<div class="uams-logo"><a href="http://www.uams.edu"><img src="https://arresearch.org/wp-content/uploads/2017/06/UAMS_Logo.png" width="250" height="70" alt="University of Arkansas for Medical Sciences (UAMS)"></a></div>'
     );
 });
+
+it('loads the translations from the folder the filter returns', function (mixed $filtered, string|false $path): void {
+    Functions\expect('get_stylesheet_directory')->once()->andReturn('/themes/arresearch');
+    Functions\expect('apply_filters')->once()->with('child_theme_textdomain', '/themes/arresearch/languages', 'minimum')->andReturn($filtered);
+    Functions\expect('load_child_theme_textdomain')->once()->with('minimum', $path);
+
+    minimum_load_textdomain();
+})->with([
+    'a path' => ['/custom/languages', '/custom/languages'],
+    'a value that is not a string' => [['/custom/languages'], false],
+]);

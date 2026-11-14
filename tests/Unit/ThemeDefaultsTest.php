@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 use Brain\Monkey\Functions;
 
-use function Brain\Monkey\Functions\when;
-
 /*
  * Order matters for these two. Brain Monkey defines a mocked function for the rest of the
  * process, so the branch where Genesis is not loaded must run before any test that defines
@@ -57,10 +55,6 @@ it('adds the theme defaults to the Genesis settings', function (): void {
 });
 
 it('supplies the Simple Social Icons defaults, which override the ones it is given', function (): void {
-    when('wp_parse_args')->alias(
-        static fn (array $args, array $defaults): array => array_merge($defaults, $args)
-    );
-
     expect(minimum_social_default_styles(['size' => 24, 'unrelated' => 'kept']))->toBe([
         'size' => 100,
         'unrelated' => 'kept',

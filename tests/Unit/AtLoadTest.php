@@ -20,13 +20,16 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\Assert;
+
 it('registers everything the theme sets up at load', function (): void {
     $calls = ArresearchThemeLoad::$calls;
     $hooks = ArresearchThemeLoad::$hooks;
 
     // The child theme constants, and the version style.css states.
-    expect(strval(constant('CHILD_THEME_NAME')))->toBe('Minimum Pro Theme')
-        ->and(CHILD_THEME_URL)->toBe('http://my.studiopress.com/themes/minimum/')
+    Assert::assertSame('Minimum Pro Theme', constant('CHILD_THEME_NAME'));
+
+    expect(CHILD_THEME_URL)->toBe('http://my.studiopress.com/themes/minimum/')
         ->and(CHILD_THEME_VERSION)->toBe('3.2.1')
         ->and(file_get_contents(dirname(__DIR__, 2).'/style.css'))->toContain('Version: '.CHILD_THEME_VERSION);
 

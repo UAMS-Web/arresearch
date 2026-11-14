@@ -9,6 +9,8 @@
 
 declare(strict_types=1);
 
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
 use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
@@ -20,18 +22,17 @@ use function Brain\Monkey\tearDown;
  * fails here) and removes every mock, so nothing leaks into the next test.
  *
  * The assertion count: Brain Monkey's expectations are Mockery expectations,
- * which PHPUnit does not count. Without adding them, a test whose only check is
- * `Functions\expect(...)->once()` reports as risky, and failOnRisky fails it.
+ * which PHPUnit does not count. MockeryPHPUnitIntegration adds them after each
+ * test; without them, a test whose only check is `Functions\expect(...)->once()`
+ * reports as risky, and failOnRisky fails it.
  */
-uses()
+uses(MockeryPHPUnitIntegration::class)
     ->beforeEach(function (): void {
         setUp();
 
         arresearch_load_theme();
     })
     ->afterEach(function (): void {
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-
         tearDown();
     })
     ->in('Unit');
