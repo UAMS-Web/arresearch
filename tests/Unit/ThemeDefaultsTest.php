@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-use Brain\Monkey\Functions;
+use function Brain\Monkey\Functions\when;
 
 it('adds the theme defaults to the Genesis settings', function (): void {
     expect(minimum_theme_defaults(['site_layout' => 'sidebar-content', 'keep' => 'me']))
@@ -25,7 +25,7 @@ it('adds the theme defaults to the Genesis settings', function (): void {
 });
 
 it('lets the Simple Social Icons defaults it is given override its own', function (): void {
-    Functions\when('wp_parse_args')->alias(
+    when('wp_parse_args')->alias(
         static fn (array $args, array $defaults): array => array_merge($defaults, $args)
     );
 

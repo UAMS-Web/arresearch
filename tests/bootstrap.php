@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 use Brain\Monkey\Functions;
 
+use function Brain\Monkey\Functions\stubs;
+use function Brain\Monkey\Functions\stubTranslationFunctions;
+use function Brain\Monkey\Functions\when;
 use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
@@ -34,12 +37,12 @@ if (! defined('ABSPATH')) {
  */
 setUp();
 
-Functions\stubTranslationFunctions();
+stubTranslationFunctions();
 
-Functions\when('get_template_directory')->justReturn(__DIR__.'/Fixtures/genesis');
-Functions\when('get_stylesheet_directory')->justReturn(dirname(__DIR__));
+when('get_template_directory')->justReturn(__DIR__.'/Fixtures/genesis');
+when('get_stylesheet_directory')->justReturn(dirname(__DIR__));
 
-Functions\stubs([
+stubs([
     'load_child_theme_textdomain',
     'add_theme_support',
     'add_image_size',

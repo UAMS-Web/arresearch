@@ -20,7 +20,7 @@
  *
  * @return string Hex color code for accent color.
  */
-function minimum_customizer_get_default_accent_color()
+function minimum_customizer_get_default_accent_color(): string
 {
 
     return '#0ebfe9';
@@ -35,7 +35,7 @@ add_action('customize_register', 'minimum_customizer');
  *
  * @param  WP_Customize_Manager  $wp_customize  Customizer object.
  */
-function minimum_customizer()
+function minimum_customizer(): void
 {
 
     global $wp_customize;

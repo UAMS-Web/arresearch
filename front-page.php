@@ -2,7 +2,7 @@
 
 // * Enqueue scripts
 add_action('wp_enqueue_scripts', 'minimum_front_page_enqueue_scripts');
-function minimum_front_page_enqueue_scripts()
+function minimum_front_page_enqueue_scripts(): void
 {
 
     //	$image = get_option( 'minimum-backstretch-image', sprintf( '%s/images/bg.jpg', get_stylesheet_directory_uri() ) );
@@ -38,7 +38,7 @@ function minimum_add_body_class($classes)
 
 // * Add widget support for homepage if widgets are being used
 add_action('genesis_meta', 'minimum_front_page_genesis_meta');
-function minimum_front_page_genesis_meta()
+function minimum_front_page_genesis_meta(): void
 {
 
     if (is_home()) {
@@ -66,9 +66,10 @@ function minimum_front_page_genesis_meta()
 
     }
 }
+
 // Add image before content
 add_action('genesis_before_entry_content', 'full_image_before_entry_content');
-function full_image_before_entry_content()
+function full_image_before_entry_content(): void
 {
 
     $content = '<div class="full-image"><div id="image-inner"><div id="volunteer-count"><h3>Volunteers to date: <span class="volunteer-count">'.number_format(get_field('volunteer_number')).'</span></h3></div><div id="inner-logo"><img src="https://arresearch.org/wp-content/uploads/sites/15/2017/06/ARresearch-logo-lrg.png" alt="ARresearch.org logo" /></div><div id="inner-cta" class="fade-in"><a class="cta-button" href="http://ncsdvs.uams.edu/ArResearch"><i class="fa fa-pencil-square-o"></i> Join Our Registry</a><h3>Be part of the answer, Arkansas!</h3></div></div></div>';
@@ -81,14 +82,14 @@ add_action('genesis_after_entry', 'genesis_do_subnav', 15);
 
 // Add custom opening div for post title
 add_action('genesis_after_entry', 'sk_do_post_title_before', 7);
-function sk_do_post_title_before()
+function sk_do_post_title_before(): void
 {
     echo '<div class="wrap">';
 }
 
 // Add custom closing div for post title
 add_action('genesis_after_entry', 'sk_do_post_title_after', 20);
-function sk_do_post_title_after()
+function sk_do_post_title_after(): void
 {
     echo '</div>';
 }
@@ -105,7 +106,7 @@ remove_action('genesis_entry_content', 'genesis_do_post_content');
 add_filter('genesis_structural_wrap-site-inner', '__return_empty_string');
 
 // * Add markup for homepage widgets
-function minimum_home_featured()
+function minimum_home_featured(): void
 {
 
     printf('<div class="wrap"><div %s>', genesis_attr('home-featured'));
@@ -137,7 +138,7 @@ function minimum_home_featured()
 }
 
 // * Genesis grid loop
-function minimum_grid_loop_helper()
+function minimum_grid_loop_helper(): void
 {
 
     if (function_exists('genesis_grid_loop')) {
