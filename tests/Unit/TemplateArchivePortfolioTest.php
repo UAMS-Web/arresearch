@@ -91,7 +91,7 @@ it('prints the featured image as a link to the post', function (): void {
 
     Functions\expect('genesis_get_image')->once()->with('format=url&size=portfolio')->andReturn('https://example.test/p.jpg');
     when('get_permalink')->justReturn('https://example.test/work/');
-    Functions\expect('the_title_attribute')->once()->with('echo=0')->andReturn('Work');
+    Functions\expect('the_title_attribute')->once()->with(['echo' => false])->andReturn('Work');
 
     ob_start();
     minimum_portfolio_grid();

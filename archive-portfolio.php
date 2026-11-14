@@ -53,7 +53,7 @@ function minimum_portfolio_grid(): void
 {
 
     if ($image = genesis_get_image('format=url&size=portfolio')) {
-        printf('<div class="portfolio-image"><a href="%s" rel="bookmark"><img src="%s" alt="%s" /></a></div>', get_permalink(), $image, the_title_attribute('echo=0'));
+        printf('<div class="portfolio-image"><a href="%s" rel="bookmark"><img src="%s" alt="%s" /></a></div>', get_permalink(), $image, the_title_attribute(['echo' => false]));
 
     }
 
