@@ -35,7 +35,7 @@ add_action('customize_register', 'minimum_customizer');
  *
  * @since 3.0.0
  *
- * @param  WP_Customize_Manager  $wp_customize  Customizer object.
+ * @global WP_Customize_Manager $wp_customize Customizer object, read from the global because the function takes no argument.
  */
 function minimum_customizer(): void
 {
