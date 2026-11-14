@@ -131,7 +131,7 @@ function minimum_site_tagline() {
 
 // * Modify the size of the Gravatar in the author box
 add_filter('genesis_author_box_gravatar_size', 'minimum_author_box_gravatar');
-function minimum_author_box_gravatar($size): int
+function minimum_author_box_gravatar(): int
 {
 
     return 144;
@@ -220,7 +220,7 @@ function tm_attr_sidebar_primary( $attributes ) {
 
 // * Change the footer text
 add_filter('genesis_footer_creds_text', 'sp_footer_creds_filter');
-function sp_footer_creds_filter($creds): string
+function sp_footer_creds_filter(): string
 {
     return 'ARresearch.org is supported by the Translational Research Institute, grant 1U54TR001629-01A1, through the National Institutes of Health,<br/>National Center for Advancing Translational Sciences, UAMS, and the UAMS Chancellor’s Circle.<br/></p><p><br/>Copyright [footer_copyright]  UAMS Translational Research Institute | All Rights Reserved &middot; [footer_loginout]';
 }
