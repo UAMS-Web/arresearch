@@ -70,7 +70,10 @@ it('keeps the primary navigation on every other page', function (): void {
 });
 
 it('sizes the author box Gravatar at 144 whatever size it is given', function (): void {
-    expect(call_user_func(minimum_author_box_gravatar(...), 70))->toBe(144);
+    /** @var callable(int): int $filter */
+    $filter = 'minimum_author_box_gravatar';
+
+    expect($filter(70))->toBe(144);
 });
 
 it('sizes the comment Gravatar at 96 and keeps the other arguments', function (): void {
@@ -92,7 +95,9 @@ it('prints the base sidebar above the secondary sidebar', function (): void {
 });
 
 it('replaces the footer credits with the grant acknowledgement', function (): void {
-    $creds = call_user_func(sp_footer_creds_filter(...), 'Genesis default credits');
+    /** @var callable(string): string $filter */
+    $filter = 'sp_footer_creds_filter';
+    $creds = $filter('Genesis default credits');
 
     expect($creds)->toStartWith('ARresearch.org is supported by the Translational Research Institute, grant 1U54TR001629-01A1,')
         ->and($creds)->toContain('UAMS Chancellor’s Circle.<br/></p><p><br/>Copyright [footer_copyright]  UAMS Translational Research Institute')
