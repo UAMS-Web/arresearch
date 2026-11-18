@@ -68,6 +68,31 @@ is needed to use it). Which one a repository uses is not a style choice:
 The two forms differ in one mechanic: how many lock files a change touches, which *The relock*
 below spells out. Everything else in this skill applies to both.
 
+**A locked `uams-web/patches-*` package's own `extra.patches` does not apply itself.** The plugin
+resolves a dependency's declared patches only from the lock's `packages`, never `packages-dev`, and
+a consumer requires the patches packages in `require-dev`, so the root registration is the only
+thing that applies them. When a release of the package declares a new patch and the consumer moves
+its pin, the new patch stays unapplied unless the same change adds it to the root list
+(UAMS-Web/aether-redirects#134 measured nine omitted patches that way). The check that catches it
+reads the outcome rather than inferring it from where the package is required: it compares each
+locked `uams-web/patches-*` package's declared patches (`composer.lock`, `packages` and
+`packages-dev`) with the patch `url` values in `patches.lock.json`, which records what
+composer-patches resolved, matches by file path, and fails naming each missing file. A package in
+`require` (the application form, whose declaration the plugin reads itself) and one in
+`require-dev` (registered at the root) are judged the same way. It fails, naming the cause, when a
+patch is declared and `patches.lock.json` is absent (a `--no-dev` relock deletes it), and passes when
+no patches package declares a patch (UAMS-Web/uams-claude-skills#797):
+
+```bash
+node .claude/skills/upstream-patch-lifecycle/scripts/check-registered-patches.mjs
+```
+
+It exits 0 when every declared patch is recorded, 1 when one is missing or the lock file is absent,
+and 2 when it could not answer (a control failed, or a file is not JSON). The shared `local-ci` runner runs it on its own
+as the `patches-registered` job whenever `composer.lock` locks a `uams-web/patches-*` package, with
+no `local-ci.json` entry; `"registeredPatches": false` in `local-ci.json` turns that off
+(UAMS-Web/uams-claude-skills#768, UAMS-Web/uams-claude-skills#770).
+
 ---
 
 ## The four-ticket chain
@@ -87,6 +112,9 @@ Tickets 2 and 3 are `afk`, each with a human approving the post, and how they ru
 verification and its timing, the two transitions, the cross-repo `blocked_by` recipe, and where to
 file) has moved to the `patch-package` skill, which the `uams-web/patches-*` repositories carry
 (UAMS-Web/uams-claude-skills#702).
+The upstream issue and pull request in tickets 2 and 3 follow the target repository's own issue and
+pull request templates, per the
+[`verify-claims-before-a-third-party-post`](../rule-verify-claims-before-a-third-party-post/SKILL.md) rule.
 Tickets 1 and 4 are ordinary in-repo builds. Ticket 4's package update often arrives as a
 Dependabot pull request: then the patch retires on that pull request's branch, per the
 [`update-dependencies-ticket`](../update-dependencies-ticket/SKILL.md) skill, and that pull
