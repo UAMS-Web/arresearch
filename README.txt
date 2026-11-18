@@ -10,15 +10,8 @@ INSTALL
 PLUGINS
 The Miniumum Pro theme supports Genesis Portfolio Pro, available at https://github.com/copyblogger/genesis-portfolio-pro/
 
-WIDGET AREAS
-Primary Sidebar - This is the primary sidebar if you are using the Content/Sidebar Site Layout option.
-Header Right - This is the widgeted area that appears at the top right of the header. If it is active then Genesis style will follow the Partial Header style otherwise it will follow the Full Image Header Style, if image header is selected. 
-Site Tagline Right - This is the site tagline right section.
-Home Featured 1 - This is the home featured 1 section.
-Home Featured 2 - This is the home featured 2 section.
-Home Featured 3 - This is the home featured 3 section.
-Home Featured 4 - This is the home featured 4 section.
-After Entry - This is the widget that appears after the entry on single posts.
+WIDGET AREAS, MENUS AND TEMPLATES
+The widget areas, menus, page templates and settings this theme adds are listed in the wiki's Theme reference: https://github.com/UAMS-Web/arresearch/wiki/Theme-reference
 
 LOCALIZATION
 The Minimum Pro theme is translation ready.  More information about the translation process can be found here:http://codex.wordpress.org/Translating_WordPress/
