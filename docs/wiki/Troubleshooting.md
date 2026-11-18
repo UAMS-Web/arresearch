@@ -1,4 +1,4 @@
-<!-- cspell:ignore Customizer -->
+<!-- cspell:ignore Customizer UAMS -->
 
 Written against v3.3.0.
 

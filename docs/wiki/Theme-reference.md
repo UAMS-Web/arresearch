@@ -1,4 +1,4 @@
-<!-- cspell:ignore Customizer dashicons Raleway Lato -->
+<!-- cspell:ignore Customizer dashicons Raleway Lato UAMS -->
 
 Written against v3.3.0.
 
