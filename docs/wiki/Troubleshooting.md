@@ -9,7 +9,7 @@ Written against v3.3.0.
 - [Nested items in the Homepage Menu do not appear](#nested-items-in-the-homepage-menu-do-not-appear)
 - [The Home Featured section does not appear](#the-home-featured-section-does-not-appear)
 - [The Backstretch image does not appear on the front page](#the-backstretch-image-does-not-appear-on-the-front-page)
-- [A Landing page has no header, menus or footer](#a-landing-page-has-no-header-menus-or-footer)
+- [A Landing page has no header or After Header Menu](#a-landing-page-has-no-header-or-after-header-menu)
 - [The parent theme is missing](#the-parent-theme-is-missing)
 
 ## The front page fails with `Call to undefined function get_field()`
@@ -54,9 +54,9 @@ Written against v3.3.0.
 
 **Fix:** use the Landing template for a page that needs the background image. Showing it on the front page takes a theme change.
 
-## A Landing page has no header, menus or footer
+## A Landing page has no header or After Header Menu
 
-**Cause:** by design. The Landing template removes the header, both menus, the breadcrumbs, the footer widgets and the footer, and forces a full-width layout.
+**Cause:** by design. The Landing template removes the header, the *After Header Menu*, the breadcrumbs, the footer widgets and the footer credits, and forces a full-width layout. The *Footer Menu* and the UAMS logo after the footer still appear.
 
 **Fix:** choose the default template in the page editor for a page that needs them.
 

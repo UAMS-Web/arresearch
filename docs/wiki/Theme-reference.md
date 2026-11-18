@@ -32,7 +32,7 @@ The Secondary Sidebar (`sidebar-alt`) is unregistered, because the layouts that 
 
 | Location | Where it appears |
 | --- | --- |
-| After Header Menu (`primary`) | Below the header on every page except the front page |
+| After Header Menu (`primary`) | Below the header on every page except the front page and pages that use the Landing template |
 | Homepage Menu (`secondary`) | On the front page, after the banner; shown one level deep everywhere |
 | Footer Menu (`footer`) | Below the footer credits on every page |
 
@@ -41,7 +41,7 @@ The Secondary Sidebar (`sidebar-alt`) is unregistered, because the layouts that 
 | Template | File | What it does |
 | --- | --- | --- |
 | Front page | `front-page.php` | The banner with the volunteer count and the Home Featured areas. See [Editing the front page](Editing-the-front-page.md). |
-| Landing | `page_landing.php`, chosen as *Landing* in the page editor | Full width, with no header, navigation, breadcrumbs, footer widgets or footer. Loads the Backstretch background image. |
+| Landing | `page_landing.php`, chosen as *Landing* in the page editor | Full width, with no header, After Header Menu, breadcrumbs, footer widgets or footer credits. The Footer Menu and the UAMS logo still appear. Loads the Backstretch background image. |
 | Portfolio archive | `archive-portfolio.php` | A full-width grid of portfolio items, each shown by its featured image at the `portfolio` size, with no entry meta or content. |
 | Portfolio type archive | `taxonomy-portfolio-type.php` | The same as the portfolio archive, for one portfolio type. |
 | Single portfolio item | `single-portfolio.php` | Full width, with no entry meta, author box or comments. |
@@ -62,7 +62,7 @@ The theme supplies these as Genesis's defaults, and writes them to the Genesis s
 
 | Setting | Value |
 | --- | --- |
-| Blog page categories to show (`blog_cat_num`) | 6 |
+| Posts shown by the Blog page template (`blog_cat_num`) | 6 |
 | Content archives (`content_archive`) | full content |
 | Content archive character limit (`content_archive_limit`) | 0 |
 | Featured image on archives (`content_archive_thumbnail`) | off |
@@ -94,7 +94,7 @@ The three-column layouts (Content/Sidebar/Sidebar, Sidebar/Content/Sidebar, Side
 | `minimum-responsive-menu` | every page | `js/responsive-menu.js` (needs jQuery) |
 | `dashicons` | every page | WordPress |
 | `minimum-google-fonts` | every page | Google Fonts: Raleway 400 and 600, Lato 400 |
-| `font-awesome` | every page | Font Awesome from a public CDN, at its latest version |
+| `font-awesome` | every page | Font Awesome from a public CDN, through its `latest` path rather than a fixed version |
 | `minimum-backstretch`, `minimum-backstretch-set` | Landing template only | `js/backstretch.js` and `js/backstretch-set.js` |
 
 The theme loads its translations from `languages/` under the `minimum` text domain, or from the folder a `child_theme_textdomain` filter returns.

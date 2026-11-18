@@ -17,7 +17,7 @@ How changes to the theme are made, checked and shipped. Changes reach `main` thr
 | `composer stan` | PHPStan at level 10, with the WordPress, Genesis and ACF Pro stubs. The WordPress stubs are locked to the 6.8 line, the theme's minimum version. |
 | `composer test:pint` | Pint, checking formatting without changing files. `composer pint` applies it. |
 | `composer test:refactor` | Rector as a dry run. `composer refactor` applies it. |
-| `composer mutate` | Pest mutation testing over the theme's PHP files, with PCOV. |
+| `composer mutate` | Pest mutation testing over `functions.php`, `lib/` and the front page, landing and portfolio templates (the `--path` list in `composer.json`, which leaves out `taxonomy-portfolio-type.php`), with PCOV. |
 
 ## Continuous integration
 

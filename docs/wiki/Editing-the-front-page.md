@@ -14,7 +14,7 @@ From top to bottom:
 4. The four *Home Featured* widget areas, when at least one of them holds a widget.
 5. The footer widgets, the footer credits, the *Footer Menu*, and the UAMS logo.
 
-When *Settings*, *Reading* has the front page show the latest posts instead of a static page, the posts are shown as a grid, at full width, with excerpts of up to 250 characters and a *[Read more]* link.
+This guide assumes *Settings*, *Reading* shows a static page as the front page. With the latest posts there instead, the theme switches to a full-width Genesis grid loop (250-character excerpts, a *[Read more]* link) where Genesis provides one, and the banner and the *Homepage Menu*, which are attached to each entry, would repeat per post. That mode is not documented further here.
 
 ## Change the volunteer count
 
